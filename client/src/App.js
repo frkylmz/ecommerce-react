@@ -1,11 +1,31 @@
+import * as React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Signin from "./pages/Auth/Signin";
+import Signup from "./pages/Auth/Signup";
 import "./App.css";
+
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <h2>Tayfun Dağcı</h2>
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+
+        <div id="content">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/signin" component={Signin} />
+            <Route path="/signup" component={Signup} />
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
+}
+
+function Home() {
+  return <h2>Home</h2>;
 }
 
 export default App;
