@@ -5,8 +5,11 @@ import { Box, Text, Button } from "@chakra-ui/react";
 import moment from "moment";
 import ImageGallery from "react-image-gallery";
 
+import { useBasket } from "../../contexts/BasketContext";
+
 function ProductDetail() {
   const { product_id } = useParams();
+  const { addToBasket, items } = useBasket();
 
   const { isLoading, isError, data } = useQuery(["product", product_id], () =>
     fetchProduct(product_id)
@@ -20,11 +23,17 @@ function ProductDetail() {
     return <div>Error...</div>;
   }
 
+  const findBasketItem = items.find((item) => item._id === product_id);
   const images = data.photos.map((url) => ({ original: url }));
 
   return (
     <div>
-      <Button colorScheme="red">Add to basket</Button>
+      <Button
+        colorScheme={findBasketItem ? "red" : "green"}
+        onClick={() => addToBasket(data, findBasketItem)}
+      >
+        {findBasketItem ? "Remove from basket" : "Add to basket"}
+      </Button>
 
       <Text as="h2" fontSize="2xl">
         {data.title}
