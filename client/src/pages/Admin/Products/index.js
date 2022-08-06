@@ -16,7 +16,7 @@ function Products() {
   );
 
   const deleteMutation = useMutation(deleteProduct, {
-    onSuccess: () => queryClient.invalidateQueries("admin:rpoducrs"),
+    onSuccess: () => queryClient.invalidateQueries("admin:products"),
   });
 
   const columns = useMemo(() => {
